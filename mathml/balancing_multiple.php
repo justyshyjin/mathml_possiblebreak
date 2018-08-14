@@ -53,18 +53,18 @@ if(count($barray%2)!=1){
             if((($sbrace == $scbrace) && $sbrace>0) || (($pbrace == $pcbrace) && $pbrace>0) || (($cbrace == $ccbrace) && $cbrace>0)){
                     $br=1;
                     $brace_close[$key] = $i;
-                    //unset($barray[$i]);
+                    unset($barray[$i]);
                     if($sbrace == $scbrace){
-                        //unset($sbrace);
-                        //unset($scbrace);
+                        unset($sbrace);
+                        unset($scbrace);
                     }
                     if($pbrace == $pcbrace){
-                        //unset($pbrace);
-                        //unset($pcbrace);
+                        unset($pbrace);
+                        unset($pcbrace);
                     }
                     if($cbrace == $ccbrace){
-                        //unset($cbrace);
-                        //unset($ccbrace);
+                        unset($cbrace);
+                        unset($ccbrace);
                     }
 
                }
