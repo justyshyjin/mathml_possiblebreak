@@ -3,10 +3,10 @@
 
 $barray = ['[','{','[','(',')',']','}','{','(','[','{','}',']',')','}',']'];
 
+echo "The brackets given are <pre>"; print_r($barray); echo "</pre>";
+
 $result = array();
 $bracesCount = array_count_values($barray);
-$sclose = $pclose = $cclose = $brace_close = array();
-
 
 if(count($barray%2)!=1){
     $result[]= 0;
@@ -19,8 +19,6 @@ if(count($barray%2)!=1){
 
         $sbrace = $pbrace = $cbrace = $scbrace = $pcbrace = $ccbrace = $br= 0;
         for($i=$key;$i<$totbrack;$i++){
-
-
 
             if($value == '['){
                 if($barray[$i] == '['){
@@ -52,24 +50,22 @@ if(count($barray%2)!=1){
             }
 
 
-
             if((($sbrace == $scbrace) && $sbrace>0) || (($pbrace == $pcbrace) && $pbrace>0) || (($cbrace == $ccbrace) && $cbrace>0)){
                     $br=1;
                     $brace_close[$key] = $i;
-                    unset($barray[$i]);
+                    //unset($barray[$i]);
                     if($sbrace == $scbrace){
-                        unset($sbrace);
-                        unset($scbrace);
+                        //unset($sbrace);
+                        //unset($scbrace);
                     }
                     if($pbrace == $pcbrace){
-                        unset($pbrace);
-                        unset($pcbrace);
+                        //unset($pbrace);
+                        //unset($pcbrace);
                     }
                     if($cbrace == $ccbrace){
-                        unset($cbrace);
-                        unset($ccbrace);
+                        //unset($cbrace);
+                        //unset($ccbrace);
                     }
-
 
                }
                if($br==1) break;
@@ -98,7 +94,7 @@ if(count($barray%2)!=1){
 
 }
 
-echo "The brackets given are <pre>"; print_r($barray); echo "</pre>";
+
 $result = in_array('0',$result);
 if($result==1)
     echo "Brackets not balanced";
