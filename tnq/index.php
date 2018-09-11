@@ -1,6 +1,8 @@
 <?php
-    //Normolizing the mathml tags - Algorithm 1 implementation
+    //Normolizing the mathml tags - Algorithm 1
 ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +20,7 @@
 <body>
     <div id="container">
         <div id="main">
-            <mfenced open="[" close="]">
+            <mfenced open="[" close="]" separators="+">
                 <mi>a</mi>
                 <mi>b</mi>
                 <mi>c</mi>

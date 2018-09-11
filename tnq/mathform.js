@@ -1,46 +1,74 @@
 $(document).ready(function(){
 
     var alltag= document.getElementById("main");
-
+    var convert =document.getElementById("mathmlnorm");
     document.getElementById('mathml').value=alltag.innerHTML;
 
+    document.getElementById('mathml').addEventListener('keyup',function(e){
+        alltag.innerHTML=this.value;
+    });
 
+    convert.onclick= function(){
+        if(alltag.getElementsByTagName("mfenced")[0]){
 
-    if(alltag.getElementsByTagName("mfenced")[0]){
+            var mfenced = alltag.getElementsByTagName("mfenced")[0];
+            var open = mfenced.getAttribute("open");
+            var close = mfenced.getAttribute("close");
+            var separator = mfenced.getAttribute("separators");
 
-        var mfenced = alltag.getElementsByTagName("mfenced")[0];
-        var open = mfenced.getAttribute("open");
-        var close = mfenced.getAttribute("close");
+            var newrow = document.createElement('mrow');
+                newrow.setAttribute("meaning", "fenced");
+            var newfenceattr = newOpen = newClose= newseparator = childtag='';
 
-        var newrow = document.createElement('mrow');
-        newrow.setAttribute("meaning", "fenced");
-        var newfenceattr ='';
-        if(open==='['){
-            var newopen=document.createElement('mo');
+            newopen=document.createElement('mo');
             newopen.setAttribute('meaning','open');
-            newopen.innerHTML='[';
-            newfenceattr+=newopen.outerHTML;
-        }
-        var childtag = mfenced.children;
 
-        for (var i = 0; i <= childtag.length; i++) {
-            newfenceattr+=childtag[i].outerHTML;
-        }
+            if(open==='(' || open ==null){
+                newOpen=moCreation('meaning','open','(');
+            }else{
+                newOpen=moCreation('meaning','open',open);
+            }
+            newrow.append(newOpen);
 
-        if(close===']'){
-            var newclose=document.createElement('mo');
-            newclose.setAttribute('meaning','close');
-            newclose.innerHTML=']';
-            newfenceattr+=newclose.outerHTML;
+            childtag = mfenced.children;
+
+            for (i = 0; i < childtag.length; i++) {
+
+                newrow.append(childtag[i].outerHTML);
+                if(i!=childtag.length-1 && separator!=""){
+                    newseparator = document.createElement('mo');
+
+                    if(separator==null){
+                        newseparator.innerText=',';
+                    }else{
+                        if(separator[i])
+                            newseparator.innerText=separator[i];
+                        else
+                            newseparator.innerText=separator.slice(-1);
+                    }
+                    newrow.append(newseparator);
+                }
+            }
+
+            if(close===')' || close ==null || close == ''){
+                newClose = moCreation('meaning','close',')');
+            }else{
+                newClose = moCreation('meaning','close',close);
+            }
+            newrow.append(newClose);
+
+            document.getElementById('mathml1').innerHTML=newrow.outerHTML;
+        }else{
+            document.getElementById('mathml1').innerHTML='';
         }
-        newrow.append(newfenceattr);
-        document.getElementById('mathml1').innerHTML=newrow.outerHTML;
     }
-    else{
-
-    }
-
-
-    console.log(childtag);
 
 });
+
+
+function moCreation(attr, attrVal ,inText){
+    var newMo = document.createElement('mo');
+    newMo.setAttribute(attr,attrVal);
+    newMo.innerText=inText;
+    return newMo;
+}
