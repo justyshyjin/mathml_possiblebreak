@@ -12,6 +12,10 @@
             width:400px;
             height: 300px;
         }
+        button{
+            position: relative;
+            bottom: 150px;
+        }
 
     </style>
     <script src="jquery.min.js"></script>
@@ -19,7 +23,7 @@
 </head>
 <body>
     <div id="container">
-        <div id="main">
+        <div id="main" style="display: none;">
             <mfenced open="[" close="]" separators="+">
                 <mi>a</mi>
                 <mi>b</mi>
@@ -29,8 +33,9 @@
         </div>
         <div class="editor">
             <textarea id="mathml"></textarea>
-            <textarea id="mathml1" style="margin-left: 15px;"></textarea><br>
-            <button id="mathmlnorm">Convert</button>
+            <button id="mathmlnorm">>></button>
+            <textarea id="mathml1"></textarea><br>
+
         </div>
         <div class="norma">
             <label class="normath">
