@@ -24,7 +24,7 @@ $(document).ready(function(){
         var childtag = mfenced.children;
 
         for (var i = 0; i <= childtag.length; i++) {
-            //newfenceattr+=childtag[i].outerHTML;
+            newfenceattr+=childtag[i].outerHTML;
         }
 
         if(close===']'){

@@ -1,8 +1,6 @@
 <?php
-    //Normolizing the mathml tags - Algorithm 1
+    //Normolizing the mathml tags - Algorithm 1 implementation
 ?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
