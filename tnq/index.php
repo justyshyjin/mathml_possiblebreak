@@ -24,12 +24,22 @@
 <body>
     <div id="container">
         <div id="main" style="display: none;">
-            <mfenced open="[" close="]" separators="+">
-                <mi>a</mi>
-                <mi>b</mi>
-                <mi>c</mi>
-                <mi>d</mi>
-            </mfenced>
+            <math>
+                <mfenced open="[" close="]" separators="+">
+                    <mi>a</mi>
+                    <mi>b</mi>
+                    <mi>c</mi>
+                    <mi>d</mi>
+                </mfenced>
+
+                <mo>(</mo>
+                    <mfrac linethickness="0pt">
+                        <mi>n</mi>
+                        <mi>k</mi>
+                    </mfrac>
+                <mo>)</mo>
+
+            </math>
         </div>
         <div class="editor">
             <textarea id="mathml"></textarea>
