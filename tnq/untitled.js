@@ -11,76 +11,79 @@ $(document).ready(function(){
     convert.onclick= function(){
         var totalTag =alltag.getElementsByTagName("*").length;
         var newOpen = newClose= mrewritten=newmath='';
-        var sep = 0;
 
-        var newrow=newParent='';
-        var childElement = '';
-        var subChildElement ='';
-        for(var i=0; i<totalTag;i++){
-
-            var newElement = alltag.getElementsByTagName("*")[i];
-
-            if(newElement.parentElement.id=="main"){
-                newParent = newElement;
+        for(var i=0; i<=totalTag;i++){
+            if(alltag.getElementsByTagName('math')[i]){
+                var newmath = document.createElement('math');
             }
 
-            if(newElement.parentElement.localName=="math"){
-                console.log(newElement.localName);
-                if(newElement.localName=="mfenced"){
-                    var mfenced=newElement;
-                    var open = mfenced.getAttribute("open");
-                    var close = mfenced.getAttribute("close");
-                    var separator = mfenced.getAttribute("separators");
+            if(alltag.getElementsByTagName('mfenced')[i]){
 
-                    newrow = document.createElement('mrow');
-                        newrow.setAttribute("meaning", "fenced");
-                        childElement = newrow;
+                var mfenced=alltag.getElementsByTagName('mfenced')[i];
+                var open = mfenced.getAttribute("open");
+                var close = mfenced.getAttribute("close");
+                var separator = mfenced.getAttribute("separators");
+
+                var newrow = document.createElement('mrow');
+                    newrow.setAttribute("meaning", "fenced");
+
+                newopen=document.createElement('mo');
+                newopen.setAttribute('meaning','open');
+
+                if(open==='(' || open ==null){
+                    newOpen=moCreation('(','meaning','open');
+                }else{
+                    newOpen=moCreation(open,'meaning','open');
                 }
-                if(newElement.localName=="mi" || newElement.localName=="mo"){
-                    childElement = newElement;
-                }
-                if(newElement.localName=="mfrac"){
-                    var mFractable = document.createElement('mtable');
-                    childElement = mFractable;
-                }
+                newrow.append(newOpen);
+                var newseparator = childtag='';
+                childtag = mfenced.children;
 
-            }else{
+                for (j = 0; j < childtag.length; j++) {
 
-                if(newElement.parentElement.localName=="mfenced"){
+                    newrow.append(childtag[j].outerHTML);
+                    if(j!=childtag.length-1 && separator!=""){
+                        newseparator = document.createElement('mo');
 
-                    if(newElement.previousElementSibling==null){
-                        if(open ==null || open==''){
-                            newOpen=moCreation('(','meaning','open');
+                        if(separator==null){
+                            newseparator.innerText=',';
                         }else{
-                            newOpen=moCreation(open,'meaning','open');
+                            if(separator.charAt(j))
+                                newseparator.innerText=separator.charAt(j);
+                            else
+                                newseparator.innerText=separator.slice(-1);
                         }
-                        subChildElement+=newOpen.outerHTML;
-                        subChildElement+=newElement.outerHTML;
-                        subChildElement+=moSeparator(separator,sep).outerHTML;
-
-                    }else if(newElement.nextElementSibling==null){
-                        if(close ==null || close == ''){
-                            newClose = moCreation(')','meaning','close');
-                        }else{
-                            newClose = moCreation(close,'meaning','close');
-                        }
-                        subChildElement+=newElement.outerHTML;
-                        subChildElement+=newClose.outerHTML;
-                    }else{
-                        subChildElement+=newElement.outerHTML;
-                        subChildElement+=moSeparator(separator,sep).outerHTML;
+                        newrow.append(newseparator);
                     }
-                    sep=sep+1;
-                    newrow.innerHTML=subChildElement;
                 }
 
+                if(close===')' || close ==null || close == ''){
+                    newClose = moCreation(')','meaning','close');
+                }else{
+                    newClose = moCreation(close,'meaning','close');
+                }
+                newrow.append(newClose);
+                mrewritten += newrow.outerHTML;
+            }
 
-            }newParent.append(childElement);
 
-            //newParent.innerHTML=  childElement
-         } //console.log(childElement);
-            //newParent.innerHTML=childElement.outerHTML;
-         document.getElementById('mathml1').innerHTML=newParent.outerHTML;
+            if(alltag.getElementsByTagName('mo')[i]){
+                var motext = alltag.getElementsByTagName('mo')[i];
+                   mrewritten+=motext.outerHTML;
+            }
+
+            // if(alltag.getElementsByTagName('mi')[i]){
+            //     var mitext = alltag.getElementsByTagName('mi')[i];
+            //        mrewritten+=mitext.outerHTML;
+            // }
+
+            if(alltag.getElementsByTagName('mfrac')[i]){
+
+            }
+
+        }
+        newmath.innerHTML=mrewritten;
+        document.getElementById('mathml1').innerHTML=newmath.outerHTML;
     }
 
 });
@@ -93,22 +96,4 @@ function moCreation(inText, attr='', attrVal=''){
     newMo.innerText=inText;
 
     return newMo;
-}
-
-function moSeparator(separators=null,pos){
-    var newseparator=separator='';
-
-    if(separators==null){
-        newseparator= ',';
-    }else{
-        if(separators.charAt(pos)!='')
-            newseparator= separators.charAt(pos);
-        else
-            newseparator= separators.slice(-1);
-    }
-
-    separator=moCreation(newseparator);
-
-    return separator;
-
 }
