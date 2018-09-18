@@ -9,19 +9,21 @@ $(document).ready(function(){
     });
 
     convert.onclick= function(){
+
         var totalTag =alltag.getElementsByTagName("*").length;
         var newOpen = newClose= mrewritten=newmath='';
-        var sep = don=0;
-
+        var sep = don=sdon=0;
+        var childRewritten = alltag.children.length;
         var newrow=newParent='';
         var childElement = '';
-        var subChildElement =childRewritten=childlen='';
+        var subChildElement =childlen='';
         for(var i=0; i<totalTag;i++){
 
             var newElement = alltag.getElementsByTagName("*")[i];
 
             if(newElement.parentElement.id=="main"){
                 newParent = document.createElement('math');
+                sdon++;
             }
 
             if(newElement.parentElement.localName=="math"){
@@ -38,6 +40,7 @@ $(document).ready(function(){
                 }
                 if(newElement.localName=="mi" || newElement.localName=="mo"){
                     childElement = newElement;
+                    newParent.append(childElement.outerHTML);
                 }
                 if(newElement.localName=="mfrac"){
                     var frac = newElement;
@@ -93,6 +96,8 @@ $(document).ready(function(){
 
                     if(don==frac.children.length-1){
                         newParent.append(mFractable);
+
+
                         don=0;
                     }
                     don++;
@@ -100,10 +105,13 @@ $(document).ready(function(){
 
 
             }
-         }
 
-         //console.log(newParent);
+
+         }
          document.getElementById('mathml1').innerHTML=newParent.outerHTML;
+            console.log(childRewritten);
+         console.log(sdon);
+
     }
 
 });
