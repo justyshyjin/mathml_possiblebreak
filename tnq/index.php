@@ -38,7 +38,17 @@
                         <mi>k</mi>
                     </mfrac>
                 <mo>)</mo>
-
+                <mrow>
+                    <mi>a</mi>
+                    <mo>+</mo>
+                    <mi>b</mi>
+                </mrow>
+                <mrow>
+                    <mo>+</mo>
+                    <mi>c</mi>
+                    <mo>+</mo>
+                    <mi>d</mi>
+                </mrow>
             </math>
         </div>
         <div class="editor">

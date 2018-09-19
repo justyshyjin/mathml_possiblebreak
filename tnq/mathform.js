@@ -14,7 +14,7 @@ $(document).ready(function(){
         var newOpen = newClose= mrewritten=newmath='';
         var sep = don=sdon=0;
         var childRewritten = alltag.children.length;
-        var newrow=newParent='';
+        var newrow=newParent=newrows='';
         var childElement = '';
         var subChildElement =childlen='';
         for(var i=0; i<totalTag;i++){
@@ -44,8 +44,20 @@ $(document).ready(function(){
                 }
                 if(newElement.localName=="mfrac"){
                     var frac = newElement;
-                    var mFractable = document.createElement('mtable');
-                    childElement = mFractable;
+                    var thickness = frac.getAttribute("linethickness");
+                    if(thickness !="0pt"){
+                        newParent.append(frac.outerHTML);
+                    }else{
+                        var mFractable = document.createElement('mtable');
+                        childElement = mFractable;
+                    }
+
+                }
+
+                if(newElement.localName=="mrow" && newElement.previousElementSibling.localName!="mrow"){
+
+                    newrows = document.createElement('mrow');
+                        childElement = newrows;
                 }
 
             }
@@ -61,7 +73,8 @@ $(document).ready(function(){
                         }
                             subChildElement=newOpen.outerHTML;
                             subChildElement+=newElement.outerHTML;
-                            subChildElement+=moSeparator(separator,sep).outerHTML;
+                            if(separator!='')
+                                subChildElement+=moSeparator(separator,sep).outerHTML;
 
                     }else if(newElement.nextElementSibling==null){
                         if(close ==null || close == ''){
@@ -73,7 +86,8 @@ $(document).ready(function(){
                         subChildElement+=newClose.outerHTML;
                     }else{
                         subChildElement=newElement.outerHTML;
-                        subChildElement+=moSeparator(separator,sep).outerHTML;
+                        if(separator!='')
+                            subChildElement+=moSeparator(separator,sep).outerHTML;
                     }
                     sep++;
                     newrow.append(subChildElement);
@@ -85,9 +99,10 @@ $(document).ready(function(){
                     don++;
 
                 }
-                if(newElement.parentElement.localName=="mfrac"){
-                    var newtd=document.createElement("td");
-                    var newtr=document.createElement("tr");
+                if(newElement.parentElement.localName=="mfrac" && mFractable){
+
+                    var newtd=document.createElement("mtd");
+                    var newtr=document.createElement("mtr");
                     var newtdVal = newElement;
                     newtd.innerHTML=newtdVal.outerHTML;
                     newtr.append(newtd);
@@ -96,12 +111,11 @@ $(document).ready(function(){
 
                     if(don==frac.children.length-1){
                         newParent.append(mFractable);
-
-
                         don=0;
                     }
                     don++;
                 }
+
 
 
             }
@@ -109,8 +123,6 @@ $(document).ready(function(){
 
          }
          document.getElementById('mathml1').innerHTML=newParent.outerHTML;
-            console.log(childRewritten);
-         console.log(sdon);
 
     }
 
