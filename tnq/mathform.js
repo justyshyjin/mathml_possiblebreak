@@ -117,11 +117,26 @@ $(document).ready(function(){
                 }
 
 
+                if(newElement.parentElement.localName=="mrow"){
+                    var siblingRow =newElement.parentElement.nextElementSibling;
+                    subChildElement = newElement.outerHTML;
+                    if(childElement!='')
+                        childElement.append(subChildElement);
+                    else
+                        newParent.append(subChildElement);
+
+                    if(don == newElement.parentElement.children.length-1 && siblingRow.localName!='mrow' || siblingRow ==null){
+                        newParent.append(childElement);
+                        don=0;
+                   }
+                   don++;
+                }
 
             }
 
 
          }
+
          document.getElementById('mathml1').innerHTML=newParent.outerHTML;
 
     }
