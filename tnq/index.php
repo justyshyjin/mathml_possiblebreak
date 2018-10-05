@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <title></title>
     <style type="text/css">
         textarea{
@@ -20,6 +21,7 @@
     </style>
     <script src="jquery.min.js"></script>
     <script type="text/javascript" src="mathform.js"></script>
+    <!-- <script type="text/javascript" src="hexacode.js"></script> -->
 </head>
 <body>
     <div id="container">
@@ -31,7 +33,7 @@
                     <mi>c</mi>
                     <mi>d</mi>
                 </mfenced>
-
+                <mo>&#x2003;</mo>
                 <mo>(</mo>
                     <mfrac linethickness="0pt">
                         <mi>n</mi>
@@ -49,6 +51,7 @@
                     <mo>+</mo>
                     <mi>d</mi>
                 </mrow>
+
             </math>
         </div>
         <div class="editor">

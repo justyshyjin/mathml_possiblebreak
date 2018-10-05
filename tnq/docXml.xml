@@ -1,0 +1,28 @@
+<div id="main">
+<math>
+    <mfenced open="[" close="]" separators="+">
+        <mi>a</mi>
+        <mi>b</mi>
+        <mi>c</mi>
+        <mi>d</mi>
+    </mfenced>
+    <mo>U+2003;</mo>
+    <mo>(</mo>
+        <mfrac linethickness="0pt">
+            <mi>n</mi>
+            <mi>k</mi>
+        </mfrac>
+    <mo>)</mo>
+    <mrow>
+        <mi>a</mi>
+        <mo>+</mo>
+        <mi>b</mi>
+    </mrow>
+    <mrow>
+        <mo>+</mo>
+        <mi>c</mi>
+        <mo>+</mo>
+        <mi>d</mi>
+    </mrow>
+</math>
+</div>
