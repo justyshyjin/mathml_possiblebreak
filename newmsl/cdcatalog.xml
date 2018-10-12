@@ -28,5 +28,34 @@
             <mo>+</mo>
             <mi>d</mi>
         </mrow>
+        <mo>&#x2003;</mo>
+        <mo>&#x2003;&#x2005;</mo>
+        <munderover>
+            <mo>&#x2211;</mo>
+            <mrow>
+                <mi>i</mi>
+                <mo>=</mo>
+                <mn>1</mn>
+                <mo>=</mo>
+            </mrow>
+
+            <mi>n</mi>
+        </munderover>
+
+        <mo meaning="operator">{</mo>
+        <mo meaning="operator">(</mo>
+        <mi>a</mi>
+        <mo meaning="operator">,</mo>
+        <mi>b</mi>
+        <mo meaning="operator">)</mo>
+        <mo meaning="operator">|</mo>
+        <mi>a</mi>
+        <mo meaning="operator">+</mo>
+        <mi>b</mi>
+        <mo meaning="operator">=</mo>
+        <mi>a</mi>
+        <mo meaning="operator"></mo>
+        <mi>b</mi>
+        <mo meaning="operator">}</mo>
     </math>
 
