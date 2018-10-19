@@ -1,0 +1,3 @@
+sudo apt-get install default-jre
+
+java -jar saxon8.jar -o out.xml cdcatalog.xml cdcatalog.xsl
