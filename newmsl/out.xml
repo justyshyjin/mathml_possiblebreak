@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+        <mrow meaning="fenced">
+      <mo meaning="open">[</mo>
+      <mml:mi>a</mml:mi>
+      <mo>,</mo>
+      <mml:mi>b</mml:mi>
+      <mo>,</mo>
+      <mml:mi>c</mml:mi>
+      <mo>,</mo>
+      <mml:mi>d</mml:mi>
+      <mo>,</mo>
+      <mml:mi>e</mml:mi>
+      <mo meaning="close">]</mo>
+   </mrow>
+
+        <mrow meaning="fenced">
+      <mml:mo meaning="open">(</mml:mo>
+   </mrow>
+        <mtable>
+      <mtr>
+         <mtd>n</mtd>
+      </mtr>
+      <mtr>
+         <mtd>k</mtd>
+      </mtr>
+   </mtable>
+        
+
+        <mml:mrow>
+            <mml:mi>a</mml:mi>
+            
+            <mml:mi>b</mml:mi>
+        </mml:mrow>
+        <mml:mrow>
+            
+            <mml:mi>c</mml:mi>
+            
+            <mml:mi>d</mml:mi>
+        </mml:mrow>
+        <mml:mi>k</mml:mi>
+        <mrow>
+      <mspace width="1em"/>
+   </mrow>
+        <mrow>
+      <mspace width="1em"/>
+      <mspace width=".50em"/>
+   </mrow>
+        <mml:mi>l</mml:mi>
+        <mml:munderover meaning="bigop" embellished="∑">
+            
+            <mml:mrow>
+                <mml:mi>i</mml:mi>
+                
+                <mml:mn>1</mml:mn>
+                
+            </mml:mrow>
+            <mml:mi>n</mml:mi>
+        </mml:munderover>
+
+        <mrow meaning="fenced">
+      <mo meaning="open">{</mo>
+   </mrow>
+        <mrow meaning="fenced">
+      <mo meaning="open">(</mo>
+   </mrow>
+        <mi>a</mi>
+        
+        <mi>b</mi>
+        
+        
+        <mi>a</mi>
+        
+        <mi>b</mi>
+        
+        <mi>a</mi>
+        
+        <mi>b</mi>
+        
+    </mml:math>

@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<xsl:stylesheet version='2.0' xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version='2.0' xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+  <xsl:output method="xml" indent="yes"/>
     <xsl:template match="*">
         <xsl:element name="{name()}">
           <xsl:apply-templates select="@*"/>
@@ -11,8 +12,8 @@
         <xsl:attribute name="{name()}"><xsl:value-of select="(.)" /></xsl:attribute>
       </xsl:template>
 
-        <xsl:template match="mfenced">
-            <mrow>
+        <xsl:template match="*:mfenced">
+            <xsl:element name="mrow">
                 <xsl:attribute name="meaning"><xsl:text>fenced</xsl:text></xsl:attribute>
                 <xsl:choose>
                     <xsl:when test="@open or @open='[' or @open='' or @open='{'">
@@ -74,10 +75,10 @@
                     </xsl:otherwise>
                 </xsl:choose>
 
-            </mrow>
+            </xsl:element>
         </xsl:template>
 
-        <xsl:template match="mfrac">
+        <xsl:template match="*:mfrac">
             <xsl:choose>
                 <xsl:when test="@linethickness='0pt'">
                 <mtable>
@@ -99,7 +100,7 @@
         </xsl:choose>
         </xsl:template>
 
-        <xsl:template match="math/mrow">
+        <xsl:template match="*:math/mrow">
             <xsl:choose>
                 <xsl:when test="following-sibling::mrow">
                     <xsl:element name="{name()}">
@@ -110,11 +111,11 @@
                 <xsl:otherwise>
                     <!--    <xsl:apply-templates select="node()"/> -->
                 </xsl:otherwise>
-        </xsl:choose>
+            </xsl:choose>
         </xsl:template>
 
-        <xsl:template match="mo[contains(.,'[&#x2003;&#x2005;]')]|mi[contains(.,'[&#x2003;&#x2005;]')]">
-            <xsl:variable name="eleName" select="name()"/>
+        <xsl:template match="*:mo[matches(.,'[&#x2005;&#x00A0;&#x2000;&#x2001;&#x2002;&#x2003;&#x2004;&#x2006;&#x2007;&#x2008;&#x2009;&#x202F;&#x205F;&#x3000;&#x200B;&#x200C;&#x200D;&#x2060;&#xFEFF;]')]|*:mi[matches(.,'[&#x2005;&#x00A0;&#x2000;&#x2001;&#x2002;&#x2003;&#x2004;&#x2006;&#x2007;&#x2008;&#x2009;&#x202F;&#x205F;&#x3000;&#x200B;&#x200C;&#x200D;&#x2060;&#xFEFF;]')]|*:mtext[matches(.,'[&#x2005;&#x00A0;&#x2000;&#x2001;&#x2002;&#x2003;&#x2004;&#x2006;&#x2007;&#x2008;&#x2009;&#x202F;&#x205F;&#x3000;&#x200B;&#x200C;&#x200D;&#x2060;&#xFEFF;]')]">
+        <xsl:variable name="eleName" select="name()"/>
         <mrow>
           <xsl:analyze-string select="." regex="&#x2003;">
         <xsl:matching-substring>
@@ -122,25 +123,144 @@
             <xsl:attribute name="width"><xsl:text>1em</xsl:text></xsl:attribute>
           </mspace>
         </xsl:matching-substring>
-        <xsl:non-matching-substring>
-          <xsl:analyze-string select="." regex="&#x2005;">
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x2005;">
             <xsl:matching-substring>
               <mspace>
             <xsl:attribute name="width"><xsl:text>.25em</xsl:text></xsl:attribute>
               </mspace>
             </xsl:matching-substring>
-            <xsl:non-matching-substring>
-              <xsl:element name="{$eleName}">
-            <xsl:value-of select="current()"/>
-              </xsl:element>
-            </xsl:non-matching-substring>
-          </xsl:analyze-string>
-        </xsl:non-matching-substring>
-          </xsl:analyze-string>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x00A0;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.50em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x2000;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.25em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x2001;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>1em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x2002;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.50em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x2004;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.33em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x2006;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.16em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x2007;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.25em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x2008;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.25em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x2009;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.2em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x202F;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.25em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x205F;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.25em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x3000;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.25em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x200B;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.25em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x200C;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.25em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x200D;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.25em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x2060;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.25em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#xFEFF;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.25em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
+      <xsl:analyze-string select="." regex="&#x2005;">
+            <xsl:matching-substring>
+              <mspace>
+            <xsl:attribute name="width"><xsl:text>.25em</xsl:text></xsl:attribute>
+              </mspace>
+            </xsl:matching-substring>
+      </xsl:analyze-string>
         </mrow>
       </xsl:template>
 
-      <xsl:template match="munderover">
+      <xsl:template match="*:munderover|*:msub|*:msup|*:msubsup|*:munder|*:mover|*:mmultiscripts">
             <xsl:variable name="embellishedValue" select="normalize-space(*[1])"/>
             <xsl:element name="{name()}">
                 <xsl:attribute name="meaning"><xsl:text>bigop</xsl:text></xsl:attribute>
@@ -151,7 +271,7 @@
             </xsl:element>
         </xsl:template>
 
-        <xsl:template match="mo">
+        <xsl:template match="*:mo">
             <xsl:element name="{name()}">
                 <xsl:choose>
                     <xsl:when test="parent::mrow[parent::munderover] or parent::munderover">
@@ -171,14 +291,24 @@
                         </xsl:attribute>
                         <xsl:apply-templates/>
                     </xsl:when>
-                    <xsl:when test="mo='{'">
-                        test
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:apply-templates/>
-                    </xsl:otherwise>
+                    <!-- <xsl:otherwise>
+                         <xsl:apply-templates/>
+                    </xsl:otherwise> -->
                 </xsl:choose>
             </xsl:element>
+            <xsl:choose>
+              <xsl:when test="node()='{' or node()='('">
+                      <xsl:element name="mrow">
+                        <xsl:attribute name="meaning"><xsl:text>fenced</xsl:text></xsl:attribute>
+                        <xsl:element name="{name()}">
+                          <xsl:attribute name="meaning">
+                              <xsl:text>open</xsl:text>
+                          </xsl:attribute>
+                          <xsl:value-of select="node()"></xsl:value-of>
+                        </xsl:element>
+                      </xsl:element>
+                    </xsl:when>
+            </xsl:choose>
         </xsl:template>
 
       <!-- <xsl:template match="munderover">
@@ -211,9 +341,11 @@
                 </xsl:choose>
               </xsl:for-each>
           </xsl:element>
-          </xsl:if>
+          </xsl:if
+          >
 
         </xsl:element>
       </xsl:template> -->
+
 
 </xsl:stylesheet>
