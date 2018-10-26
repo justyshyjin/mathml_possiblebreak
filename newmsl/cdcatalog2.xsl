@@ -17,15 +17,15 @@
                 <xsl:attribute name="meaning"><xsl:text>fenced</xsl:text></xsl:attribute>
                 <xsl:choose>
                     <xsl:when test="@open or @open='[' or @open='' or @open='{'">
-                        <mml:mo>
+                        <mo>
                             <xsl:attribute name="meaning">
                                 <xsl:text>open</xsl:text>
                             </xsl:attribute>
                             <xsl:value-of select="@open"></xsl:value-of>
-                        </mml:mo>
+                        </mo>
                     </xsl:when>
                     <xsl:otherwise>
-                        <mml:mo>(</mml:mo>
+                        <mo>(</mo>
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:choose>
@@ -37,10 +37,10 @@
                         <xsl:if test="following-sibling::*">
                           <xsl:choose>
                             <xsl:when test="position() &lt;= string-length($separator)">
-                              <mml:mo><xsl:value-of select="substring($separator,position(),1)"/></mml:mo>
+                              <mo><xsl:value-of select="substring($separator,position(),1)"/></mo>
                             </xsl:when>
                             <xsl:when test="position() &gt; string-length($separator)">
-                              <mml:mo><xsl:value-of select="substring($separator,string-length($separator),1)"/></mml:mo>
+                              <mo><xsl:value-of select="substring($separator,string-length($separator),1)"/></mo>
                             </xsl:when>
                           </xsl:choose>
                           <xsl:text>&#10;</xsl:text>
@@ -55,7 +55,7 @@
                         <xsl:apply-templates select="."/>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:if test="following-sibling::*">
-                          <mml:mo>,</mml:mo>
+                          <mo>,</mo>
                           <xsl:text>&#10;</xsl:text>
                         </xsl:if>
                       </xsl:for-each>
@@ -63,15 +63,15 @@
                   </xsl:choose>
                 <xsl:choose>
                     <xsl:when test="@close or @close=']' or @close='' or @close='}'">
-                        <mml:mo>
+                        <mo>
                             <xsl:attribute name="meaning">
                                 <xsl:text>close</xsl:text>
                             </xsl:attribute>
                             <xsl:value-of select="@close"></xsl:value-of>
-                        </mml:mo>
+                        </mo>
                     </xsl:when>
                     <xsl:otherwise>
-                        <mml:mo>)</mml:mo>
+                        <mo>)</mo>
                     </xsl:otherwise>
                 </xsl:choose>
 
@@ -263,31 +263,20 @@
       <xsl:template match="*:munderover|*:msub|*:msup|*:msubsup|*:munder|*:mover|*:mmultiscripts">
             <xsl:variable name="embellishedValue" select="normalize-space(*[1])"/>
             <xsl:element name="{name()}">
-              <xsl:choose>
-              <xsl:when test="$embellishedValue='&#x2140;' or  $embellishedValue='&#x220F;'or  $embellishedValue='&#x2211;' or  $embellishedValue='&#x2A04;'or  $embellishedValue='&#x2210;' or  $embellishedValue='&#x2A05;'or  $embellishedValue='&#x22C0;' or  $embellishedValue='&#x2A06;'or  $embellishedValue='&#x22C1;' or  $embellishedValue='&#x2A07;'or  $embellishedValue='&#x22C2;' or  $embellishedValue='&#x2A08;'or  $embellishedValue='&#x22C3;' or  $embellishedValue='&#x2A09;'or  $embellishedValue='&#x2A00;' or  $embellishedValue='&#x2A0A;'or  $embellishedValue='&#x2A01;' or  $embellishedValue='&#x2A0B;'or  $embellishedValue='&#x2A02;' or  $embellishedValue='&#x2AFC;'or  $embellishedValue='&#x2A03;' or  $embellishedValue='&#x2AFF;'">
                 <xsl:attribute name="meaning"><xsl:text>bigop</xsl:text></xsl:attribute>
-                </xsl:when>
-                <xsl:when test="$embellishedValue='&#x222B;' or  $embellishedValue='&#x222C;'or  $embellishedValue='&#x222D;' or  $embellishedValue='&#x2A04;'or  $embellishedValue='&#x222E;' or  $embellishedValue='&#x2A10;'or  $embellishedValue='&#x222F;' or  $embellishedValue='&#x2A11;'or  $embellishedValue='&#x2230;' or  $embellishedValue='&#x2A12;'or  $embellishedValue='&#x2231;' or  $embellishedValue='&#x2A13;'or  $embellishedValue='&#x2232;' or  $embellishedValue='&#x2A14;'or  $embellishedValue='&#x2233;' or  $embellishedValue='&#x2A15;'or  $embellishedValue='&#x2A0C;' or  $embellishedValue='&#x2A16;'or  $embellishedValue='&#x2A0D;' or  $embellishedValue='&#x2A17;'or  $embellishedValue='&#x2A0E;' or  $embellishedValue='&#x2A18;'or  $embellishedValue='&#x2A19;' or  $embellishedValue='&#x2A1B;' or  $embellishedValue='&#x2A1A;' or  $embellishedValue='&#x2A1C;'">
-                  <xsl:attribute name="meaning"><xsl:text>integral</xsl:text></xsl:attribute>
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:attribute name="meaning"><xsl:text>operator</xsl:text></xsl:attribute>
-                </xsl:otherwise>
-              </xsl:choose>
                 <xsl:attribute name="embellished">
                     <xsl:value-of select="$embellishedValue"/>
                 </xsl:attribute>
                 <xsl:apply-templates/>
-
             </xsl:element>
         </xsl:template>
 
         <xsl:template match="*:mo">
           <xsl:choose>
-          <xsl:when test="@meaning='operator'">
+            <xsl:when test="@meaning='operator'">
               <xsl:choose>
-                  <xsl:when test="node()='{' or node()='(' or node()='['">
-                     <xsl:text disable-output-escaping="yes">&lt;mml&#58;mrow meaning=&#34;fenced&#34;&gt;&#xA;</xsl:text>
+                  <xsl:when test=".='{' or .='(' or .='['">
+                     <xsl:text disable-output-escaping="yes">&lt;mml:mrow meaning="fenced"&gt;&#10;</xsl:text>
                     <xsl:element name="{name()}">
                       <xsl:attribute name="meaning">
                         <xsl:text>open</xsl:text>
@@ -295,31 +284,27 @@
                       <xsl:value-of select="node()"/>
                     </xsl:element>
                   </xsl:when>
-                  <xsl:when test="node()='}' or node()=')' or node()=']'">
+                  <xsl:when test=".='}' or .=')' or .=']'">
                      <xsl:element name="{name()}">
                       <xsl:attribute name="meaning">
                         <xsl:text>close</xsl:text>
                       </xsl:attribute>
                       <xsl:value-of select="node()"/>
                     </xsl:element>
-                    <xsl:text disable-output-escaping="yes">&#xA;&lt;&#47;mml&#58;mrow&gt;&#xA;</xsl:text>
+                    <xsl:text disable-output-escaping="yes">&#10;&lt;/mml:mrow&gt;</xsl:text>
                   </xsl:when>
                   <xsl:otherwise>
-                      <xsl:element name="mml:mo">
-                          <xsl:attribute name="meaning"><xsl:value-of select="@meaning" /></xsl:attribute>
-                          <xsl:value-of select="(.)"></xsl:value-of>
+                      <xsl:element name="{name()}">
+                        <xsl:attribute name="meaning">
+                          <xsl:value-of select="@meaning"/>
+                        </xsl:attribute>
+                        <xsl:value-of select="."/>
                       </xsl:element>
                   </xsl:otherwise>
               </xsl:choose>
-          </xsl:when>
-          <xsl:when test="@stretchy='false'">
-            <xsl:element name="{name()}">
-              <xsl:attribute name="stretchy"><xsl:value-of select="@stretchy" /></xsl:attribute>
-            <xsl:apply-templates/>
-          </xsl:element>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:element name="{name()}">
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:element name="{name()}">
                 <xsl:choose>
                     <xsl:when test="parent::mrow[parent::munderover] or parent::munderover">
                         <xsl:attribute name="meaning">
@@ -338,9 +323,15 @@
                         </xsl:attribute>
                         <xsl:apply-templates/>
                     </xsl:when>
+                  <xsl:otherwise>
+                      <xsl:element name="mml:mo">
+                          <xsl:value-of select="node()"></xsl:value-of>
+                      </xsl:element>
+                  </xsl:otherwise>
                 </xsl:choose>
             </xsl:element>
           </xsl:otherwise>
-          </xsl:choose>
+        </xsl:choose>
+
         </xsl:template>
 </xsl:stylesheet>

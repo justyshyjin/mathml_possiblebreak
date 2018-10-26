@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
-        <mml:msubsup meaning="integral" embellished="∫">
-            <mml:mo meaning="operator">∫</mml:mo>
+<?xml version="1.0" encoding="UTF-8"  ?>
+<?xml-stylesheet type="text/xsl" href="cdcatalog.xsl" ?>
+    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+        <mml:msubsup meaning="integral" embellished="&#x222B;">
+            <mml:mo meaning="operator">&#x222B;</mml:mo>
             <mml:mi>a</mml:mi>
             <mml:mi>b</mml:mi>
         </mml:msubsup>
@@ -15,18 +16,18 @@
          <mml:mo movablelimits="true" form="prefix">lim</mml:mo>
          <mml:mrow>
             <mml:mrow meaning="fenced">
-               <mml:mo meaning="open" stretchy="false">‖</mml:mo>
-               <mml:mi mathvariant="normal">Δ</mml:mi>
+               <mml:mo meaning="open" stretchy="false">&#x2016;</mml:mo>
+               <mml:mi mathvariant="normal">&#x0394;</mml:mi>
                <mml:mi>x</mml:mi>
-               <mml:mo meaning="close" stretchy="false">‖</mml:mo>
+               <mml:mo meaning="close" stretchy="false">&#x2016;</mml:mo>
                </mml:mrow>
-               <mml:mo meaning="operator">→</mml:mo>
+               <mml:mo meaning="operator">&#x2192;</mml:mo>
                <mml:mn>0</mml:mn>
                </mml:mrow>
             </mml:munder>
 
-            <mml:munderover meaning="bigop" embellished="∑">
-                <mml:mo meaning="operator">∑</mml:mo>
+            <mml:munderover meaning="bigop" embellished="&#x2211;">
+                <mml:mo meaning="operator">&#x2211;</mml:mo>
                 <mml:mrow>
 
                 <mml:mi>i</mml:mi>
@@ -53,7 +54,7 @@
 
                 <mi>i</mi>
 
-                <mo meaning="operator">∗</mo>
+                <mo meaning="operator">&#x2217;</mo>
 
                 </msubsup>
 
@@ -61,7 +62,7 @@
 
             </mrow>
 
-            <mi mathvariant="normal">Δ</mi>
+            <mi mathvariant="normal">&#x0394;</mi>
 
             <msub>
 
