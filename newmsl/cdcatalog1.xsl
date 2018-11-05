@@ -11,6 +11,10 @@
       <xsl:template match="@*">
         <xsl:attribute name="{name()}"><xsl:value-of select="(.)" /></xsl:attribute>
       </xsl:template>
-<xsl:template match="not(msqrt)">
+<xsl:template match="@meaning">
+  <xsl:text>
+    test
+  </xsl:text>
+</xsl:template>
 
 </xsl:stylesheet>

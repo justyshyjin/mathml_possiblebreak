@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"  ?>
 <?xml-stylesheet type="text/xsl" href="cdcatalog.xsl" ?>
     <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
-        <mml:msubsup meaning="integral" embellished="&#x222B;">
+        <!-- <mml:msubsup meaning="integral" embellished="&#x222B;">
             <mml:mo meaning="operator">&#x222B;</mml:mo>
             <mml:mi>a</mml:mi>
             <mml:mi>b</mml:mi>
@@ -70,5 +70,7 @@
 
                 <mi>i</mi>
 
-            </msub>
+            </msub> -->
+            <mml:mphantom>
+            </mml:mphantom>
         </mml:math>
