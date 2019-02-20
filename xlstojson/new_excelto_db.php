@@ -2,13 +2,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
-    
+// ini_set('memory_limit', '-1');  
  
  require_once "vendor/autoload.php";
  require "dbconfig.php";
  use PhpOffice\PhpSpreadsheet\IOFactory;
  
-        $tmpfname = "spreadsheet.xlsx"; 
+        $tmpfname = "T-Matrix of MIQ Videos.xlsx"; 
         
         $excelReader = IOFactory::createReaderForFile($tmpfname);
         $excelObj = $excelReader->load($tmpfname);
@@ -16,18 +16,25 @@ ini_set('display_startup_errors', TRUE);
         
         // $worksheetByname = $excelObj->getSheetByName('AR');
          $output =array();
-        for($sheet =1;$sheet<$no_worksheet;$sheet++)
-        {
+        for($sheet = 0;$sheet<$no_worksheet;$sheet++)
+        { 
+            
             $worksheet_name = $excelObj->getSheetNames();
             
             $worksheet = $excelObj->getSheet($sheet);
             
-            $lastRow = $worksheet->getHighestRow();
-            $lastColumn = $worksheet->getHighestColumn();
+            $lastRow = $worksheet->getHighestDataRow(); 
+            $lastColumn = $worksheet->getHighestDataColumn();
             $menu = $submenu = array();
             $jsonoutput = array();
             $cat = '';
-            for ($row = 1; $row <= $lastRow; $row++) {
+            if($sheet == 0){
+                $firstRow = 3;    
+            }else{
+                $firstRow = 1;
+            }
+            
+            for ($row = $firstRow; $row <= $lastRow; $row++) {
                       
                 $a = trim($worksheet->getCell('A'.$row)->getValue());
                 $b = trim($worksheet->getCell('B'.$row)->getValue());
@@ -36,58 +43,60 @@ ini_set('display_startup_errors', TRUE);
                 $e = trim($worksheet->getCell('E'.$row)->getValue());
                 $f = trim($worksheet->getCell('F'.$row)->getValue());
                 
-                if($a=='' && $b=='' && $c=='' && $d!=''){
-                    $menu=$d;
-                }
-                if($b!='' && $b!='Function'){
-                    $submenu=$b;
-                }
-                if($a!='' ){
-                    if($a == 'S.No'){
-                                    }
-                    else{ 
-                        $cat = $worksheet_name[$sheet];
-                            
-                            
-                                $cquery = "select * from category where c_name = '".$menu."'"; 
-
-                                $cat_stmt = $conn->query($cquery);
-                                $mrow_count = $cat_stmt->rowCount();
-                                $mquery = $cat_stmt->fetch();
-
-                                if($mrow_count>0){
-                                   $c_id = $mquery['c_id'];
-                                }else{
-                                    $cins = $conn->prepare("Insert into category (c_name) values(:menu)");
-                                    $cins->execute(['menu'=>$menu]);
-                                    $c_id = $conn->lastInsertId();
-                                }
-
-                                $scquery = "select * from sub_category where c_id= $c_id and sc_name = '".$submenu."'"; 
-
-                                $scat_stmt = $conn->query($scquery);
-                                $smrow_count = $scat_stmt->rowCount();
-                                $smquery = $scat_stmt->fetch();
-
-                                if($smrow_count>0){
-                                   $sc_id = $smquery['sc_id'];
-                                }else{
-                                    $scins = $conn->prepare("Insert into sub_category (c_id,sc_name) values(:c_id,:submenu)");
-                                    $scins->execute([
-                                        'c_id'=>$c_id,
-                                        'submenu'=>$submenu,
-                                    ]);
-                                    $sc_id = $conn->lastInsertId();
-                                }
-
-                            $jsonoutput[$menu][$submenu][$cat][$a]=['Video Description'=>$c,$submenu=>$d,'Link'=>$e,'Video Duration'=>$f];
-                        
-                
-
+                if($sheet > 0){ 
+                    if($a=='' && $b=='' && $c=='' && $d!=''){
+                        $menu=$d;
                     }
-                }
-               
+                    if($b!='' && $b!='Function'){
+                        $submenu=$b;
+                    }
+                    if($a!='' && $c!='' && $d!=''){
+                        if($a == 'S.No'){
+                                        }
+                        else{ 
 
+                            $cat = $worksheet_name[$sheet];
+                            $dur = gmdate("H:i:s", round($f*86400));
+
+                            $query = $conn->prepare("CALL EXCELTODB(:menu,:submenu,:cat,:sno,:title,:desc,:link,:dur)");
+                            $query->execute([
+                                'menu'=>$menu,
+                                'submenu'=>$submenu,
+                                'cat'=>$cat,
+                                'sno'=>$a,
+                                'title'=>$d,
+                                'desc'=>$c,
+                                'link'=>$e,
+                                'dur'=>$dur,
+                            ]);
+
+                                    
+                            $jsonoutput[$menu][$submenu][$cat][$a]=['Video Description'=>$c,$submenu=>$d,'Link'=>$e,'Video Duration'=>$dur];
+                            
+                    
+
+                        }
+                    }
+                   
+                }else{
+                    if($c!=''){
+                        $submenu=$c;
+                    }
+                    if($b!=''){
+                        $menu=$b;
+                    }
+
+                if($submenu!='' && $submenu!='Total Number of Videos' && $submenu!='Total Number of Hours' && $submenu!='Total Number of Technical Videos'){
+
+                    $query = $conn->prepare("CALL EXCELMENUTODB(:menu,:submenu)");
+                     $query->execute([
+                                'menu'=>$menu,
+                                'submenu'=>$submenu,
+                            ]);
+
+                    $jsonoutput[$menu][]=$submenu;
+                        }
+                    }
             }
 
             $output[] = $jsonoutput;
